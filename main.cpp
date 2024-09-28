@@ -10,5 +10,7 @@ int main() {
   areaCodes["Chicago"] = 312;
   areaCodes["Dallas"] = 214;
 
-  cout << "The area code for New York is " << areaCodes["New York"] << endl;
+  for (auto it = areaCodes.begin(); it != areaCodes.end(); ++it) {
+    cout << it->first << ": " << it->second << endl;
+  }
 };
