@@ -53,3 +53,5 @@ int main() {
 
   return 0;
 }
+
+//now I will begin adding various user interactions and validations to the program
