@@ -1,16 +1,55 @@
 #include <iostream>
-#include <unordered_map>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 
-int main() {
-  unordered_map<string, int> areaCodes;
-  areaCodes["New York"] = 212;
-  areaCodes["Los Angeles"] = 213;
-  areaCodes["Chicago"] = 312;
-  areaCodes["Dallas"] = 214;
-
-  for (auto it = areaCodes.begin(); it != areaCodes.end(); ++it) {
-    cout << it->first << ": " << it->second << endl;
+// Simple Base64 encoding function for demonstration purposes
+string base64_encode(const string &in) {
+  string out;
+  int val = 0, valb = -6;
+  for (unsigned char c : in) {
+    val = (val << 8) + c;
+    valb += 8;
+    while (valb >= 0) {
+      out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[(val >> valb) & 0x3F]);
+      valb -= 6;
+    }
   }
-};
+  if (valb > -6) out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[((val << 8) >> (valb + 8)) & 0x3F]);
+  while (out.size() % 4) out.push_back('=');
+  return out;
+}
+
+void saveUser(const string &email, const string &name, const string &password) {
+  string encryptedPassword = base64_encode(password);
+
+  ofstream file("users.txt", ios::app);
+  if (file.is_open()) {
+    file << "Email: " << email << "\n";
+    file << "Name: " << name << "\n";
+    file << "Password: " << encryptedPassword << "\n";
+    file << "--------------------------\n";
+    file.close();
+  } else {
+    cerr << "Unable to open file";
+  }
+}
+
+int main() {
+  string email, name, password;
+
+  cout << "Email: ";
+  cin >> email;
+  cin.ignore(); // Ignore the newline character left in the buffer
+  cout << "Name: ";
+  getline(cin, name);
+  cout << "Password: ";
+  cin >> password;
+
+  saveUser(email, name, password);
+
+  return 0;
+}

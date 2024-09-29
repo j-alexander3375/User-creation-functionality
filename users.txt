@@ -1,0 +1,8 @@
+Email: john.doe@email.com
+Name: john
+Password: ZG9l
+--------------------------
+Email: josh.doe@email.com
+Name: john doe
+Password: cGFzc3dvcmQ=
+--------------------------
