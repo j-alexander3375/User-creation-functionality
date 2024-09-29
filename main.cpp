@@ -6,7 +6,15 @@
 
 using namespace std;
 
-// Simple Base64 encoding function for demonstration purposes
+/**
+ * @brief Encodes a given string to Base64 format.
+ * 
+ * This function takes an input string and encodes it using the Base64 encoding scheme.
+ * Base64 is commonly used to encode binary data as an ASCII string.
+ * 
+ * @param in The input string to be encoded.
+ * @return A Base64 encoded string.
+ */
 string base64_encode(const string &in) {
   string out;
   int val = 0, valb = -6;
